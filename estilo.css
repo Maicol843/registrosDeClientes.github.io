@@ -1,0 +1,35 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+/* Agregamos un poco de espacio entre los elementos */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.titulo, span {
+  font-family: "Satisfy", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body{
+  background-image: url(./assets/fondo.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  height: 100vh;
+}
+
+.contenedor-formulario{
+  background-color: rgba(0, 0, 0, 0.619);
+  padding: 30px;
+  color: white;
+  border-radius: 8px;
+}
+
+footer p{
+  font-size: 0.8rem;
+}
+
