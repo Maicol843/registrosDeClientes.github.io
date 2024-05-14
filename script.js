@@ -7,19 +7,20 @@ function insertarCliente() {
   var anio = document.getElementById('anio').value;
   var dni = document.getElementById('dni').value;
   var domicilio = document.getElementById('domicilio').value;
+  var notas = document.getElementById('notas').value;
 
   // Crear fecha de nacimiento en formato dd/mm/aaaa
   var fechaNacimiento = dia + "/" + mes + "/" + anio;
 
   // Crear fila de la tabla
-  var fila = "<tr><td>" + nombre + "</td><td>" + dni + "</td><td>" + fechaNacimiento + "</td><td>" + domicilio + "</td></tr>";
+  var fila = "<tr><td>" + nombre + "</td><td>" + dni + "</td><td>" + fechaNacimiento + "</td><td>" + domicilio + "</td><td>" + notas + "</td></tr>";
 
   // Agregar fila a la tabla
   document.getElementById("tabla-clientes").insertAdjacentHTML('beforeend', fila);
 
   // Guardar en localStorage
   var clientes = JSON.parse(localStorage.getItem('clientes')) || [];
-  clientes.push({nombre: nombre, dni: dni, fechaNacimiento: fechaNacimiento, domicilio: domicilio});
+  clientes.push({nombre: nombre, dni: dni, fechaNacimiento: fechaNacimiento, domicilio: domicilio, notas: notas});
   localStorage.setItem('clientes', JSON.stringify(clientes));
 
   // Limpiar el formulario
@@ -30,7 +31,7 @@ function insertarCliente() {
 window.onload = function() {
   var clientes = JSON.parse(localStorage.getItem('clientes')) || [];
   clientes.forEach(function(cliente) {
-    var fila = "<tr><td>" + cliente.nombre + "</td><td>" + cliente.dni + "</td><td>" + cliente.fechaNacimiento + "</td><td>" + cliente.domicilio + "</td></tr>";
+    var fila = "<tr><td>" + cliente.nombre + "</td><td>" + cliente.dni + "</td><td>" + cliente.fechaNacimiento + "</td><td>" + cliente.domicilio + "</td><td>" + cliente.notas + "</td></tr>";
     document.getElementById("tabla-clientes").insertAdjacentHTML('beforeend', fila);
   });
 }
