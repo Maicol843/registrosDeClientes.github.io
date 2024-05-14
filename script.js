@@ -44,6 +44,10 @@ function insertarCliente() {
     clientes.push({ nombre: nombre, contacto: contacto, fechaNacimiento: fechaNacimiento, domicilio: domicilio, servicio: servicio });
     localStorage.setItem('clientes', JSON.stringify(clientes));
   }
+
+  // Actualizar la paginación
+  actualizarPaginacion();
+
   // Limpiar el formulario
   document.getElementById("formulario").reset();
 }
@@ -55,12 +59,15 @@ window.onload = function () {
     var fila = "<tr><td>" + cliente.nombre + "</td><td>" + cliente.contacto + "</td><td>" + cliente.fechaNacimiento + "</td><td>" + cliente.domicilio + "</td><td>" + cliente.servicio + "</td></tr>";
     document.getElementById("tabla-clientes").insertAdjacentHTML('beforeend', fila);
   });
+  // Actualizar la paginación
+  actualizarPaginacion();
 }
 
 // Función para reestablecer la tabla (eliminar todos los clientes)
 function reestablecerTabla() {
   localStorage.removeItem('clientes');
   document.getElementById("tabla-clientes").innerHTML = "";
+  actualizarPaginacion();
 }
 
 // Función para editar los datos de un cliente
@@ -90,6 +97,8 @@ function eliminarUltimoCliente() {
     clientes.pop();
     localStorage.setItem('clientes', JSON.stringify(clientes));
   }
+  // Actualizar la paginación
+  actualizarPaginacion();
 }
 
 // Función para verificar cumpleaños de los clientes
@@ -174,5 +183,58 @@ function editarServicio() {
     celdaDomicilio.setAttribute("contenteditable", "true");
     var celdaServicio = filas[i].getElementsByTagName("td")[4];
     celdaServicio.setAttribute("contenteditable", "true");
+  }
+}
+
+// Función para actualizar la paginación
+function actualizarPaginacion() {
+  var filasPorPagina = 5;
+  var tabla = document.getElementById("tabla-clientes");
+  var filas = tabla.getElementsByTagName("tr");
+
+  var numPaginas = Math.ceil(filas.length / filasPorPagina);
+
+  var paginationContainer = document.getElementById("pagination-container");
+  paginationContainer.innerHTML = ""; // Limpiamos la paginación antes de actualizarla
+
+  if (numPaginas >= 0) {
+    for (var i = 1; i <= numPaginas; i++) {
+      var li = document.createElement("li");
+      li.classList.add("page-item");
+      var a = document.createElement("a");
+      a.classList.add("page-link");
+      a.href = "#";
+      a.textContent = i;
+      a.onclick = function() {
+        mostrarPagina(this);
+      };
+      li.appendChild(a);
+      paginationContainer.appendChild(li);
+    }
+  }
+}
+
+// Función para mostrar la página seleccionada
+function mostrarPagina(elemento) {
+  var paginas = document.querySelectorAll('.pagination .page-item');
+  paginas.forEach(function(pagina) {
+    pagina.classList.remove('active');
+  });
+  elemento.parentNode.classList.add('active');
+
+  var filasPorPagina = 5;
+  var tabla = document.getElementById("tabla-clientes");
+  var filas = tabla.getElementsByTagName("tr");
+
+  var numPagina = parseInt(elemento.textContent);
+  var inicio = (numPagina - 1) * filasPorPagina;
+  var fin = inicio + filasPorPagina;
+
+  for (var i = 0; i < filas.length; i++) {
+    if (i >= inicio && i < fin) {
+      filas[i].style.display = "";
+    } else {
+      filas[i].style.display = "none";
+    }
   }
 }
