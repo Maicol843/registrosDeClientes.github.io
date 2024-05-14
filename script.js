@@ -87,16 +87,25 @@ function editarCliente(index) {
 
 // Función para eliminar el último cliente de la tabla
 function eliminarUltimoCliente() {
+  // Establecer un evento de clic en cada celda de la tabla
   var tabla = document.getElementById("tabla-clientes");
-  var rowCount = tabla.rows.length;
-  if (rowCount > 0) {
-    tabla.deleteRow(rowCount - 1);
+  var filas = tabla.getElementsByTagName("tr");
+  for (var i = 0; i < filas.length; i++) {
+    var celdas = filas[i].getElementsByTagName("td");
+    for (var j = 0; j < celdas.length; j++) {
+      celdas[j].onclick = function() {
+        this.parentNode.parentNode.removeChild(this.parentNode);
+      };
+    }
+  }
 
-    // También eliminamos el último cliente del localStorage
-    var clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+  // Eliminar el último cliente del localStorage
+  var clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+  if (clientes.length > 0) {
     clientes.pop();
     localStorage.setItem('clientes', JSON.stringify(clientes));
   }
+
   // Actualizar la paginación
   actualizarPaginacion();
 }
