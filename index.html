@@ -37,8 +37,8 @@
               <input type="text" class="form-control" id="nombre" required>
             </div>
             <div class="form-group col-md-3">
-              <label for="dni">DNI</label>
-              <input type="text" class="form-control" id="dni" required>
+              <label for="contacto">Contacto</label>
+              <input type="text" class="form-control" id="contacto" required>
             </div>
           </div>
           <div class="row d-flex align-items-center justify-content-center">
@@ -63,14 +63,14 @@
           </div>
           <div class="d-flex justify-content-center align-items-center">
             <div class="form-group col-md-10">
-              <label for="notas">Notas</label>
-              <input type="text" class="form-control" id="notas" required>
+              <label for="servicio">Servicio</label>
+              <input type="text" class="form-control" id="servicio" required>
             </div>
           </div>
           <div class="d-flex justify-content-center align-items-center">
             <div class="btn-group" role="group">
-              <button type="button" class="btn btn-primary" onclick="insertarCliente()">Insertar</button>
-              <button type="button" class="btn btn-info" onclick="verificarCumpleanos()">Verificar</button>
+              <button type="button" class="btn btn-primary" onclick="insertarCliente()"><i class="fa-solid fa-turn-down"></i> Insertar</button>
+              <button type="button" class="btn btn-info" onclick="verificarCumpleanos()"><i class="fa-solid fa-spinner"></i> Verificar</button>
             </div>
           </div>
         </form>
@@ -78,15 +78,24 @@
     </div>
 
     <h1 class="mt-5 mb-3 text-center titulo">Clientes</h1>
+    <!-- Buscador -->
+    <div class="form-group">
+      <div class="input-group col-md-4">
+        <input type="text" class="form-control" id="busqueda" placeholder="Ingrese el nombre del cliente">
+        <div class="input-group-append">
+          <button class="btn btn-outline-dark" type="button" onclick="buscarCliente()"><i class="fa-solid fa-magnifying-glass"></i> Buscar</button>
+        </div>
+      </div>
+    </div>
     <div class="table-responsive border-dark">
       <table class="table text-light" id="tablaGenerada">
         <thead>
           <tr class="text-center">
             <th>Nombre</th>
-            <th>DNI</th>
+            <th>Contacto</th>
             <th>Fecha de Nacimiento</th>
             <th>Domicilio</th>
-            <th>Notas</th>
+            <th>Servicio</th>
           </tr>
         </thead>
         <tbody id="tabla-clientes" class="text-center">
@@ -100,6 +109,7 @@
       <div class="btn-group" role="group">
         <button class="btn btn-secondary" onclick="reestablecerTabla()"><i class="fa-solid fa-arrow-rotate-left"></i>
           Reestablecer</button>
+        <button class="btn btn-warning" onclick="editarServicio()"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
         <button class="btn btn-danger" onclick="eliminarUltimoCliente()"><i class="fa-solid fa-trash-can"></i>
           Eliminar</button>
         <button class="btn btn-success" onclick="descargarTabla()"><i class="fa-solid fa-download"></i>
